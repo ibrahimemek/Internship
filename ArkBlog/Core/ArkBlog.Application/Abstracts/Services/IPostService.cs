@@ -1,0 +1,19 @@
+﻿using ArkBlog.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ArkBlog.Application.Abstracts.Services
+{
+    public interface IPostService
+    {
+        public Task<bool> PublishAsync(string Id, string Title, string Content, string userId);
+        public Task<(bool, string)> CreateAsync(string userId);
+        public Task<bool> SaveDraftAsync(string Id, string Title, string Content, string userId);
+
+
+
+    }
+}
