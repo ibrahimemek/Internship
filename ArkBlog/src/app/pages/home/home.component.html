@@ -1,0 +1,69 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Welcome to ArkBlog</h1>
+      <p class="hero-subtitle">Discover amazing stories, insights, and knowledge from our community of writers</p>
+      <div class="hero-actions">
+        <a routerLink="/posts" class="btn-primary">Explore Posts</a>
+        <a routerLink="/register" class="btn-secondary">Join Our Community</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Posts Section -->
+  <section class="featured-posts">
+    <div class="section-header">
+      <h2>Featured Posts</h2>
+      <p>Discover the latest and most popular content from our community</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading featured posts...</p>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error && !loading" class="error-container">
+      <p class="error-message">{{ error }}</p>
+      <button (click)="loadFeaturedPosts()" class="btn-retry">Try Again</button>
+    </div>
+
+    <!-- Posts Grid -->
+    <div *ngIf="!loading && !error" class="posts-grid">
+      <div *ngFor="let post of featuredPosts" class="post-card">
+        <div class="post-header">
+          <span class="post-category">{{ post.category }}</span>
+          <span class="post-date">{{ formatDate(post.createdAt) }}</span>
+        </div>
+        <h3 class="post-title">
+          <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
+        </h3>
+        <p class="post-excerpt">{{ truncateText(post.content) }}</p>
+        <div class="post-footer">
+          <span class="post-author">By {{ post.author?.userName || 'Anonymous' }}</span>
+          <span class="post-views">{{ post.clickCount }} views</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && !error && featuredPosts.length === 0" class="empty-state">
+      <p>No posts available yet. Be the first to create one!</p>
+      <a routerLink="/posts" class="btn-primary">Browse All Posts</a>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Share Your Story?</h2>
+      <p>Join our community and start writing amazing content that inspires others.</p>
+      <div class="cta-actions">
+        <a routerLink="/register" class="btn-primary">Get Started</a>
+        <a routerLink="/posts" class="btn-outline">Read More</a>
+      </div>
+    </div>
+  </section>
+</div> 
